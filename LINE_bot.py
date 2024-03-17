@@ -6,6 +6,8 @@
 # ======================================================================
 
 from flask import Flask, request, abort
+from dotenv import load_dotenv
+load_dotenv()
 
 from linebot import (
     LineBotApi, WebhookHandler
@@ -20,8 +22,8 @@ import os
 
 app = Flask(__name__)
 
-YOUR_CHANNEL_ACCESS_TOKEN = "o9kNYM32NKI3GfydfmuVUnjgDOj7slP0kkOWdv8pm6uRH/+ymbK5otUck/QgpYaHtQIip/s262K0+RsksEgqSgAnGxmS4Un77Ne+yrbhpg6WQOGGn0AfRgDcRLfCvOIWqRv+h/e9FU9OJisTFk9u9QdB04t89/1O/w1cDnyilFU="
-YOUR_CHANNEL_SECRET = "4a593d0f0c3bc22e60b057da6e00b361"
+YOUR_CHANNEL_ACCESS_TOKEN =  os.getenv( "YOUR_CHANNEL_ACCESS_TOKEN")
+YOUR_CHANNEL_SECRET =  os.getenv("YOUR_CHANNEL_SECRET")
 
 line_bot_api = LineBotApi(YOUR_CHANNEL_ACCESS_TOKEN)
 handler = WebhookHandler(YOUR_CHANNEL_SECRET)
@@ -53,3 +55,4 @@ def handle_message(event):
 if __name__ == "__main__":
     port = int(os.getenv("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
+    
