@@ -7,6 +7,7 @@
 
 from flask import Flask, request, abort
 from dotenv import load_dotenv
+import requests
 load_dotenv()
 
 from linebot import (
@@ -27,6 +28,7 @@ YOUR_CHANNEL_SECRET =  os.getenv("YOUR_CHANNEL_SECRET")
 
 line_bot_api = LineBotApi(YOUR_CHANNEL_ACCESS_TOKEN)
 handler = WebhookHandler(YOUR_CHANNEL_SECRET)
+headers = {'Authorization': 'Bearer ' + YOUR_CHANNEL_ACCESS_TOKEN}
 
 @app.route("/callback", methods=['POST'])
 def callback():
@@ -52,12 +54,9 @@ def handle_message(event):
                 event.reply_token,
                 TextSendMessage(text=event.message.text + "わん"))
     if "画像" in event.message.text:
-            line_bot_api.reply_message(
-                event.reply_token, {
-                type: 'image',
-                "originalContentUrl": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhnhnvT4_2cxoFHgNG2slYCqxy6PTr5L_hrgN6lvm_fFNvtp_1UXELKAD1A3rRY9kgb6yCHKnTH7tTG9QJIrs0ZCnLDpoHaWRUiHWm03l9lbeooMzw9nZqt8PVDFJcUhxu8qu-I4H2HnN8/s800/kid_job_boy_programmer.png", 
-                "previewImageUrl":  "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhnhnvT4_2cxoFHgNG2slYCqxy6PTr5L_hrgN6lvm_fFNvtp_1UXELKAD1A3rRY9kgb6yCHKnTH7tTG9QJIrs0ZCnLDpoHaWRUiHWm03l9lbeooMzw9nZqt8PVDFJcUhxu8qu-I4H2HnN8/s800/kid_job_boy_programmer.png"
-            })
+            image = 'C:/Users/Public/google.jpg'  # png or jpg を指定
+            files = {'imageFile': open(image, 'rb')}
+            r = requests.post(url, headers=headers, files=files,)
     else:
         line_bot_api.reply_message(
             event.reply_token,
