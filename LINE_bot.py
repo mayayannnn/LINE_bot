@@ -54,7 +54,7 @@ def handle_message(event):
                 event.reply_token,
                 TextSendMessage(text=event.message.text + "わん"))
     elif "画像" in event.message.text:
-                line_bot_api.reply_message(
+            line_bot_api.reply_message(
                 event.reply_token,
                 TextSendMessage(text=event.message.text + "わん"))
     else:
