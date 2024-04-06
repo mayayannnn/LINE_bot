@@ -16,7 +16,7 @@ from linebot.exceptions import (
     InvalidSignatureError
 )
 from linebot.models import (
-    MessageEvent, TextMessage, TextSendMessage,
+    MessageEvent, TextMessage, TextSendMessage, ImageSendMessage, ImageMessage, 
 )
 import os
 import requests
@@ -52,13 +52,11 @@ def handle_message(event):
     if "いぬ" in event.message.text:
             line_bot_api.reply_message(
                 event.reply_token,
-                TextSendMessage(text=event.message.text + "わんこ"))
+                TextSendMessage(text=event.message.text + "わん"))
     elif "画像" in event.message.text:
-            message = 'Write Your Message'
-            image = 'test.png'  # png or jpg
-            payload = {'message': message}
-            files = {'imageFile': open(image, 'rb')}
-            r = requests.post(line_bot_api, headers=headers, params=payload, files=files,)
+            line_bot_api.reply_message(
+                event.reply_token,
+                ImageSendMessage("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhnhnvT4_2cxoFHgNG2slYCqxy6PTr5L_hrgN6lvm_fFNvtp_1UXELKAD1A3rRY9kgb6yCHKnTH7tTG9QJIrs0ZCnLDpoHaWRUiHWm03l9lbeooMzw9nZqt8PVDFJcUhxu8qu-I4H2HnN8/s800/kid_job_boy_programmer.png"))
     else:
         line_bot_api.reply_message(
             event.reply_token,
