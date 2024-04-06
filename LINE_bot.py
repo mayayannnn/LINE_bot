@@ -16,7 +16,7 @@ from linebot.exceptions import (
     InvalidSignatureError
 )
 from linebot.models import (
-    MessageEvent, TextMessage, TextSendMessage, ImageSendMessage, ImageMessage, 
+    MessageEvent, TextMessage, TextSendMessage, ImageSendMessage, ImageMessage, StickerMessage,StickerSendMessage
 )
 import os
 import requests
@@ -56,7 +56,12 @@ def handle_message(event):
     elif "画像" in event.message.text:
             line_bot_api.reply_message(
                 event.reply_token,
-                ImageSendMessage(original_content_url='https://example.com/original.jpg',preview_image_url='https://example.com/preview.jpg'))
+                ImageSendMessage(original_content_url='https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhnhnvT4_2cxoFHgNG2slYCqxy6PTr5L_hrgN6lvm_fFNvtp_1UXELKAD1A3rRY9kgb6yCHKnTH7tTG9QJIrs0ZCnLDpoHaWRUiHWm03l9lbeooMzw9nZqt8PVDFJcUhxu8qu-I4H2HnN8/s800/kid_job_boy_programmer.png',preview_image_url='https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhnhnvT4_2cxoFHgNG2slYCqxy6PTr5L_hrgN6lvm_fFNvtp_1UXELKAD1A3rRY9kgb6yCHKnTH7tTG9QJIrs0ZCnLDpoHaWRUiHWm03l9lbeooMzw9nZqt8PVDFJcUhxu8qu-I4H2HnN8/s800/kid_job_boy_programmer.png'))
+    elif "スタンプ" in event.massage.text:
+            line_bot_api.reply_message(
+                event.reply_token,
+                StickerSendMessage( package_id='1',sticker_id='1')
+            )
     else:
         line_bot_api.reply_message(
             event.reply_token,
